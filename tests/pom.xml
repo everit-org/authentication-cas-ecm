@@ -140,6 +140,7 @@
               <vmOptions>
                 <vmOption>-Xdebug</vmOption>
                 <vmOption>-Xrunjdwp:server=y,transport=dt_socket,address=1044,suspend=n</vmOption>
+                <vmOption>-Djavax.net.ssl.trustStore=${project.build.outputDirectory}/jetty-keystore</vmOption>
               </vmOptions>
             </environment>
           </environments>
@@ -183,6 +184,12 @@
     <dependency>
       <groupId>org.everit.authentication</groupId>
       <artifactId>org.everit.authentication.http.session.ecm</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.everit.web</groupId>
+      <artifactId>org.everit.web.servlet</artifactId>
       <version>1.0.0</version>
     </dependency>
 

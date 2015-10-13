@@ -15,8 +15,10 @@
  */
 package org.everit.authentication.cas.ecm.tests;
 
+import java.io.InputStream;
 import java.util.EventListener;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.Filter;
 import javax.servlet.Servlet;
@@ -59,9 +61,9 @@ import aQute.bnd.annotation.headers.ProvideCapability;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CasAuthenticationTestComponent {
 
-  private static final String APP1 = "127.0.0.1";
+  private static final String PROP_APP1 = "app1";
 
-  private static final String APP2 = "127.0.0.2";
+  private static final String PROP_APP2 = "app2";
 
   private AuthenticationContext authenticationContext1;
 
@@ -93,6 +95,9 @@ public class CasAuthenticationTestComponent {
 
   private Servlet sessionLogoutServlet2;
 
+  /**
+   * Component activator method.
+   */
   @Activate
   public void activate(final BundleContext bundleContext,
       final Map<String, Object> componentProperties)
@@ -100,13 +105,19 @@ public class CasAuthenticationTestComponent {
 
     this.bundleContext = bundleContext;
 
+    InputStream resourceAsStream =
+        getClass().getClassLoader().getResourceAsStream("META-INF/ipaddresses.properties");
+    Properties properties = new Properties();
+    properties.load(resourceAsStream);
     SampleApp.pingCasLoginUrl(bundleContext);
 
-    sampleApp1 = new SampleApp(APP1, sessionAuthenticationFilter1, sessionLogoutServlet1,
+    sampleApp1 = new SampleApp(properties.getProperty(PROP_APP1), sessionAuthenticationFilter1,
+        sessionLogoutServlet1,
         casAuthenticationFilter1, casAuthenticationEventListener1,
         authenticationContext1);
 
-    sampleApp2 = new SampleApp(APP2, sessionAuthenticationFilter2, sessionLogoutServlet2,
+    sampleApp2 = new SampleApp(properties.getProperty(PROP_APP2), sessionAuthenticationFilter2,
+        sessionLogoutServlet2,
         casAuthenticationFilter2, casAuthenticationEventListener2,
         authenticationContext2);
   }
@@ -116,14 +127,18 @@ public class CasAuthenticationTestComponent {
    */
   @After
   public void after() throws Exception {
-    if ((johndoe != null) && johndoe.isLoggedIn()) {
-      sampleApp1.casLogout(johndoe);
+    if (johndoe != null) {
+      if (johndoe.isLoggedIn()) {
+        sampleApp1.casLogout(johndoe);
+      }
+      johndoe.close();
     }
-    johndoe.close();
-    if ((janedoe != null) && janedoe.isLoggedIn()) {
-      sampleApp2.casLogout(janedoe);
+    if (janedoe != null) {
+      if (janedoe.isLoggedIn()) {
+        sampleApp2.casLogout(janedoe);
+      }
+      janedoe.close();
     }
-    janedoe.close();
   }
 
   @Before
