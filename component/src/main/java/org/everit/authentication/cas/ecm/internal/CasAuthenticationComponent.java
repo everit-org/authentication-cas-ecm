@@ -32,7 +32,7 @@ import org.everit.osgi.ecm.annotation.Activate;
 import org.everit.osgi.ecm.annotation.Component;
 import org.everit.osgi.ecm.annotation.ConfigurationPolicy;
 import org.everit.osgi.ecm.annotation.Deactivate;
-import org.everit.osgi.ecm.annotation.Service;
+import org.everit.osgi.ecm.annotation.ManualService;
 import org.everit.osgi.ecm.annotation.ServiceRef;
 import org.everit.osgi.ecm.annotation.attribute.StringAttribute;
 import org.everit.osgi.ecm.annotation.attribute.StringAttributes;
@@ -57,7 +57,7 @@ import aQute.bnd.annotation.headers.ProvideCapability;
  * session assigned to the service ticket (received in the logout request) will be invalidated. The
  * CAS server sends the logout request asynchronously to the clients, therefore the session of the
  * logout request is not the same as the session of the user. The mapping of service tickets and
- * sessions are handled by the {@link CasHttpSessionRegistry}.</li>
+ * sessions are handled by the {@link org.everit.authentication.cas.CasHttpSessionRegistry}.</li>
  * </ul>
  * <p>
  * It is recommended to use this component in pair with
@@ -79,7 +79,12 @@ import aQute.bnd.annotation.headers.ProvideCapability;
         label = "Service Description",
         description = "The description of this component configuration. It is used to easily "
             + "identify the service registered by this component.") })
-@Service
+@ManualService({
+    Filter.class,
+    ServletContextListener.class,
+    HttpSessionListener.class,
+    HttpSessionAttributeListener.class,
+    EventListener.class })
 public class CasAuthenticationComponent {
 
   private AuthenticationSessionAttributeNames authenticationSessionAttributeNames;
