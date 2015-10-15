@@ -26,11 +26,15 @@ public final class CasAuthenticationAttributePriority {
 
   public static final int P3_FAILURE_URL = 3;
 
-  public static final int P4_AUTHENTICATION_SESSION_ATTRIBUTE_NAMES = 4;
+  public static final int P4_REQ_PARAM_NAME_SERVICE_TICKET = 4;
 
-  public static final int P5_RESOURCE_ID_RESOLVER = 5;
+  public static final int P5_REQ_PARAM_NAME_LOGOUT_REQUEST = 5;
 
-  public static final int P6_SAX_PARSER_FACTORY = 6;
+  public static final int P6_AUTHENTICATION_SESSION_ATTRIBUTE_NAMES = 6;
+
+  public static final int P7_RESOURCE_ID_RESOLVER = 7;
+
+  public static final int P8_SAX_PARSER_FACTORY = 8;
 
   private CasAuthenticationAttributePriority() {
   }

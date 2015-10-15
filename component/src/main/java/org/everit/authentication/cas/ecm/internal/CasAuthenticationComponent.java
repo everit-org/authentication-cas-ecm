@@ -98,6 +98,10 @@ public class CasAuthenticationComponent {
    */
   private String failureUrl;
 
+  private String requestParamNameLogoutRequest;
+
+  private String requestParamNameServiceTicket;
+
   private ResourceIdResolver resourceIdResolver;
 
   private SAXParserFactory saxParserFactory;
@@ -112,15 +116,20 @@ public class CasAuthenticationComponent {
     Dictionary<String, Object> serviceProperties =
         new Hashtable<>(componentContext.getProperties());
 
-    CasAuthentication casAuthentication =
-        new CasAuthentication(casServiceTicketValidatorUrl, failureUrl,
-            (String) serviceProperties.get(Constants.SERVICE_PID),
-            authenticationSessionAttributeNames, resourceIdResolver, saxParserFactory);
+    CasAuthentication casAuthentication = new CasAuthentication(
+        casServiceTicketValidatorUrl,
+        requestParamNameServiceTicket,
+        requestParamNameLogoutRequest,
+        failureUrl,
+        resourceIdResolver,
+        authenticationSessionAttributeNames,
+        saxParserFactory);
 
-    serviceRegistration = componentContext.registerService(new String[] {
-        Filter.class.getName(), ServletContextListener.class.getName(),
-        HttpSessionListener.class.getName(), HttpSessionAttributeListener.class.getName(),
-        EventListener.class.getName() },
+    serviceRegistration = componentContext.registerService(
+        new String[] {
+            Filter.class.getName(),
+            HttpSessionListener.class.getName(),
+            EventListener.class.getName() },
         casAuthentication,
         serviceProperties);
   }
@@ -137,7 +146,7 @@ public class CasAuthenticationComponent {
 
   @ServiceRef(attributeId = CasAuthenticationConstants.ATTR_AUTHENTICATION_SESSION_ATTRIBUTE_NAMES,
       defaultValue = "",
-      attributePriority = CasAuthenticationAttributePriority.P4_AUTHENTICATION_SESSION_ATTRIBUTE_NAMES, // CS_DISABLE_LINE_LENGTH
+      attributePriority = CasAuthenticationAttributePriority.P6_AUTHENTICATION_SESSION_ATTRIBUTE_NAMES, // CS_DISABLE_LINE_LENGTH
       label = "AuthenticationSessionAttributeNames OSGi filter", description = "OSGi Service filter"
           + " expression for AuthenticationSessionAttributeNames instance.")
   public void setAuthenticationSessionAttributeNames(
@@ -164,8 +173,26 @@ public class CasAuthenticationComponent {
     this.failureUrl = failureUrl;
   }
 
+  @StringAttribute(attributeId = CasAuthenticationConstants.ATTR_REQ_PARAM_NAME_LOGOUT_REQUEST,
+      defaultValue = CasAuthenticationConstants.DEFAULT_REQ_PARAM_NAME_LOGOUT_REQUEST,
+      priority = CasAuthenticationAttributePriority.P5_REQ_PARAM_NAME_LOGOUT_REQUEST,
+      label = "Logout request param name",
+      description = "The request parameter name of the logout request.")
+  public void setRequestParamNameLogoutRequest(final String requestParamNameLogoutRequest) {
+    this.requestParamNameLogoutRequest = requestParamNameLogoutRequest;
+  }
+
+  @StringAttribute(attributeId = CasAuthenticationConstants.ATTR_REQ_PARAM_NAME_SERVICE_TICKET,
+      defaultValue = CasAuthenticationConstants.DEFAULT_REQ_PARAM_NAME_SERVICE_TICKET,
+      priority = CasAuthenticationAttributePriority.P4_REQ_PARAM_NAME_SERVICE_TICKET,
+      label = "Service ticket param name",
+      description = "The request parameter name of the service ticket.")
+  public void setRequestParamNameServiceTicket(final String requestParamNameServiceTicket) {
+    this.requestParamNameServiceTicket = requestParamNameServiceTicket;
+  }
+
   @ServiceRef(attributeId = CasAuthenticationConstants.ATTR_RESOURCE_ID_RESOLVER, defaultValue = "",
-      attributePriority = CasAuthenticationAttributePriority.P5_RESOURCE_ID_RESOLVER,
+      attributePriority = CasAuthenticationAttributePriority.P7_RESOURCE_ID_RESOLVER,
       label = "ResourceIdResolver OSGi filter",
       description = "OSGi Service filter expression for ResourceIdResolver instance.")
   public void setResourceIdResolver(final ResourceIdResolver resourceIdResolver) {
@@ -173,7 +200,7 @@ public class CasAuthenticationComponent {
   }
 
   @ServiceRef(attributeId = CasAuthenticationConstants.ATTR_SAX_PARSER_FACTORY, defaultValue = "",
-      attributePriority = CasAuthenticationAttributePriority.P6_SAX_PARSER_FACTORY,
+      attributePriority = CasAuthenticationAttributePriority.P8_SAX_PARSER_FACTORY,
       label = "SAXParserFactory OSGi filter",
       description = "OSGi Service filter expression for SAXParserFactory instance.")
   public void setSaxParserFactory(final SAXParserFactory saxParserFactory) {

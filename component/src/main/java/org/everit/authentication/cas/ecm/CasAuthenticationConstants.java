@@ -28,6 +28,10 @@ public final class CasAuthenticationConstants {
 
   public static final String ATTR_FAILURE_URL = "failure.url";
 
+  public static final String ATTR_REQ_PARAM_NAME_LOGOUT_REQUEST = "requestParamNameLogoutRequest";
+
+  public static final String ATTR_REQ_PARAM_NAME_SERVICE_TICKET = "requestParamNameServiceTicket";
+
   public static final String ATTR_RESOURCE_ID_RESOLVER = "resourceIdResolver.target";
 
   public static final String ATTR_SAX_PARSER_FACTORY = "saxParserFactory.target";
@@ -37,11 +41,21 @@ public final class CasAuthenticationConstants {
 
   public static final String DEFAULT_FAILURE_URL = "/failed.html";
 
+  /**
+   * The default value of the {@link #requestParamNameLogoutRequest}.
+   */
+  public static final String DEFAULT_REQ_PARAM_NAME_LOGOUT_REQUEST = "logoutRequest";
+
+  /**
+   * The default value of the {@link #requestParamNameServiceTicket}.
+   */
+  public static final String DEFAULT_REQ_PARAM_NAME_SERVICE_TICKET = "ticket";
+
   public static final String DEFAULT_SERVICE_DESCRIPTION_CAS_AUTHENTICATION =
       "Default CAS Authentication Component";
 
   public static final String SERVICE_FACTORYPID_CAS_AUTHENTICATION =
-      "org.everit.osgi.authentication.cas.CasAuthentication";
+      "org.everit.authentication.cas.ecm.CasAuthentication";
 
   private CasAuthenticationConstants() {
   }

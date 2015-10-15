@@ -25,7 +25,6 @@ import javax.servlet.Servlet;
 
 import org.apache.http.conn.HttpHostConnectException;
 import org.everit.authentication.context.AuthenticationContext;
-import org.everit.osgi.dev.testrunner.TestDuringDevelopment;
 import org.everit.osgi.dev.testrunner.TestRunnerConstants;
 import org.everit.osgi.ecm.annotation.Activate;
 import org.everit.osgi.ecm.annotation.Component;
@@ -111,14 +110,18 @@ public class CasAuthenticationTestComponent {
     properties.load(resourceAsStream);
     SampleApp.pingCasLoginUrl(bundleContext);
 
-    sampleApp1 = new SampleApp(properties.getProperty(PROP_APP1), sessionAuthenticationFilter1,
+    sampleApp1 = new SampleApp(properties.getProperty(PROP_APP1),
+        sessionAuthenticationFilter1,
         sessionLogoutServlet1,
-        casAuthenticationFilter1, casAuthenticationEventListener1,
+        casAuthenticationFilter1,
+        casAuthenticationEventListener1,
         authenticationContext1);
 
-    sampleApp2 = new SampleApp(properties.getProperty(PROP_APP2), sessionAuthenticationFilter2,
+    sampleApp2 = new SampleApp(properties.getProperty(PROP_APP2),
+        sessionAuthenticationFilter2,
         sessionLogoutServlet2,
-        casAuthenticationFilter2, casAuthenticationEventListener2,
+        casAuthenticationFilter2,
+        casAuthenticationEventListener2,
         authenticationContext2);
   }
 
@@ -210,7 +213,6 @@ public class CasAuthenticationTestComponent {
   }
 
   @Test
-  @TestDuringDevelopment
   public void test01SingleAppAccessHelloPageWithInvalidTicket() throws Exception {
     sampleApp1.assertHello(johndoe, HelloWorldServlet.GUEST);
     sampleApp1.casLoginWithInvalidTicket(johndoe);
