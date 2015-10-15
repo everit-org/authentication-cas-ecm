@@ -41,14 +41,8 @@ public final class CasAuthenticationConstants {
 
   public static final String DEFAULT_FAILURE_URL = "/failed.html";
 
-  /**
-   * The default value of the {@link #requestParamNameLogoutRequest}.
-   */
   public static final String DEFAULT_REQ_PARAM_NAME_LOGOUT_REQUEST = "logoutRequest";
 
-  /**
-   * The default value of the {@link #requestParamNameServiceTicket}.
-   */
   public static final String DEFAULT_REQ_PARAM_NAME_SERVICE_TICKET = "ticket";
 
   public static final String DEFAULT_SERVICE_DESCRIPTION_CAS_AUTHENTICATION =
