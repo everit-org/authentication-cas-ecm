@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<!--
+
+    Copyright (C) 2011 Everit Kft. (http://www.everit.org)
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>Authentication CAS ECM</title>
+<link rel="icon" type="image/ico" href="http://www.everit.org/fonts/favicon.ico">
+
+<!--    <link rel="stylesheet" type="text/css" href="common/css/base.css">-->
+<link href="http://www.everit.org/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://www.everit.org/css/docs.min.css" rel="stylesheet">
+<link href="http://www.everit.org/css/everit.css" rel="stylesheet">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push([ '_setAccount', 'UA-15041869-4' ]);
+  _gaq.push([ '_setDomainName', 'everit.org' ]);
+  _gaq.push([ '_trackPageview' ]);
+</script>
+</head>
+
+<body class="bs-docs-home" data-spy="scroll" data-target="#affix-nav">
+  <a class="sr-only" href="#content">Skip to main content</a>
+  <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse"
+          data-target=".bs-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+            class="icon-bar"></span> <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">Index</a>
+      </div>
+      <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav">
+          <li><a href="https://github.com/everit-org/authentication-cas-ecm" target="_blank">Source</a></li>
+          <li><a href="http://www.everit.org/" target="_blank">Community</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="http://www.everit.biz" target="_blank">Enterprise</a></li>
+          <li><a href="http://everitorg.wordpress.com/" target="_blank">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="bs-docs-masthead everit-header" id="content" role="main">
+    <div class="container">
+      <span class="bs-docs-booticon bs-docs-booticon-lg bs-docs-booticon-outline"> <img
+        class="logo" src="http://www.everit.org/fonts/sbz_e.svg" alt="E">
+      </span>
+      <p class="lead">Authentication CAS ECM</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="col-md-10">
+
+      <div class="bs-docs-featurette cookbook">
+        <h2 id="introduction" class="bs-docs-featurette-title">Introduction</h2>
+        <p>
+          <a href="http://www.everit.org/ecm/">ECM</a> based component for <a
+            href="https://github.com/everit-org/authentication-cas">authentication-cas</a>.
+        </p>
+      </div>
+      <hr class="featurette-divider">
+
+      <div class="bs-docs-featurette cookbook">
+        <h2 id="component" class="bs-docs-featurette-title">Component</h2>
+        <p>The module contains one ECM component. The component can be instantiated multiple
+          times via Configuration Admin. The component registers two OSGi services:</p>
+        <ul>
+          <li><b>javax.servlet.Filter</b>: Handles the CAS service ticket validation and CAS
+            logout request processing.</li>
+          <li><b>java.util.EventListener</b>: As a <b>ServletContextListener</b>, a <b>HttpSessionListener</b>
+            and a <b>HttpSessionAttributeListener</b> to handle ServletContext, HttpSession and
+            HttpSession attribute related events that ensures the operation of the component. For
+            more information check the javadoc of the <i>org.everit.authentication.cas.ecm.internal</i>
+            package.</li>
+        </ul>
+      </div>
+      <hr class="featurette-divider">
+
+      <div class="bs-docs-featurette cookbook">
+        <h2 id="configuration" class="bs-docs-featurette-title">Configuration</h2>
+        <ul>
+          <li><b>Service Description</b>: The description of this component configuration. It
+            is used to easily identify the services registered by this component.
+            (service.description)</li>
+          <li><b>CAS service ticket validation URL</b>: The URL provided by the CAS server for
+            service ticket validation. HTTPS protocol (and java keystore configuration) is
+            recommended for security reasons. For e.g.
+            "https://cas.example.com/cas/serviceValidate". (cas.service.ticket.validation.url)</li>
+          <li><b>Failure URL</b>: The URL where the user will be redirected in case of failed
+            request processing. For e.g. "/failed.html", the user will be redirected to
+            "http://app.example.com/failed.html" (failure.url)</li>
+          <li><b>AuthenticationSessionAttributeNames OSGi filter</b>: OSGi Service filter
+            expression for AuthenticationSessionAttributeNames instance.
+            (authenticationSessionAttributeNames.target)</li>
+          <li><b>ResourceIdResolver OSGi filter</b>: OSGi Service filter expression for
+            ResourceIdResolver instance. (resourceIdResolver.target)</li>
+          <li><b>SAXParserFactory OSGi filter</b>: OSGi Service filter expression for
+            SAXParserFactory instance. (saxParserFactory.target)</li>
+        </ul>
+      </div>
+      <hr class="featurette-divider">
+
+      <div class="bs-docs-featurette cookbook">
+        <h2 id="usage" class="bs-docs-featurette-title">Usage</h2>
+        <p>
+          A complex example can be found under the integration tests project in the <i>org.everit.authentication.cas.ecm.tests.CasAuthenticationTestComponent</i>
+          class.
+        </p>
+      </div>
+      <hr class="featurette-divider">
+
+      <div class="bs-docs-featurette cookbook">
+        <h2 id="useful_cas_links" class="bs-docs-featurette-title">Useful CAS links</h2>
+        <ul>
+          <li><a href="http://jasig.github.io/cas/4.0.0/index.html">CAS 4.0.0 home page</a></li>
+          <li><a href="http://jasig.github.io/cas/4.0.0/images/cas_flow_diagram.png">CAS
+              flow diagram</a></li>
+          <li><a
+            href="http://jasig.github.io/cas/4.0.0/installation/Logout-Single-Signout.html">Logout
+              and Single Logout (SLO)</a></li>
+        </ul>
+      </div>
+      <hr class="featurette-divider">
+
+      <div class="bs-docs-featurette cookbook">
+        <h2 id="concept" class="bs-docs-featurette-title">Concept</h2>
+        <p>
+          Full authentication concept is available on blog post <a
+            href="http://everitorg.wordpress.com/2014/07/31/everit-authentication/">Everit
+            Authentication</a>.
+        </p>
+      </div>
+      <hr class="featurette-divider">
+    </div>
+
+    <!--        Affix-->
+    <div class="col-md-2 col-sm-0 col-xs-0">
+      <nav id="affix-nav">
+        <ul class="nav nav-pills nav-stacked everit-affix" data-spy="affix" data-offset-top="350"
+          data-offset-bottom="140">
+          <li class="active"><a href="#introduction">Introduction</a></li>
+          <li><a href="#component">Component</a></li>
+          <li><a href="#configuration">Configuration</a></li>
+          <li><a href="#usage">Usage</a></li>
+          <li><a href="#useful_cas_links">Useful CAS links</a></li>
+          <li><a href="#concept">Concept</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div></div>
+  <footer class="bs-docs-footer" role="contentinfo">
+    <div class="container">
+      <div class="bs-docs-social">
+        <ul class="bs-docs-social-buttons">
+          <li class="follow-btn "><a href="https://twitter.com/EveritOrg"
+            class="twitter-follow-button" data-show-count="true">Follow @EveritOrg</a></li>
+          <li class="tweet-btn"><a href="https://twitter.com/share"
+            class="twitter-share-button" data-url="http://www.everit.org/">Tweet</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript
+================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="http://www.everit.org/js/jquery-2.1.1.min.js"></script>
+  <script src="http://www.everit.org/js/bootstrap.min.js"></script>
+  <script src="http://www.everit.org/js/everit.js "></script>
+  <script type="text/javascript">
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+            : 'http://www')
+            + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <script src="http://www.everit.org/js/prettify/run_prettify.js"></script>
+</body>
+
+</html>
